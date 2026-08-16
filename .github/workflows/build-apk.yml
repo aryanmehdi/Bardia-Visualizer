@@ -27,12 +27,11 @@ jobs:
           echo "--- Repo contents after unzip ---"
           find . -maxdepth 3 -not -path "./.git*"
 
-      - name: Locate project root (folder containing build.gradle)
+      - name: Locate project root (folder containing settings.gradle)
         id: locate
         run: |
-          PROJECT_DIR=$(dirname "$(find . -maxdepth 4 -name 'build.gradle' -not -path './build.gradle' | head -n 1)")
-          if [ -z "$PROJECT_DIR" ] || [ "$PROJECT_DIR" = "." ]; then
-            # fallback: root build.gradle itself
+          PROJECT_DIR=$(dirname "$(find . -maxdepth 4 -name 'settings.gradle' | head -n 1)")
+          if [ -z "$PROJECT_DIR" ]; then
             PROJECT_DIR="."
           fi
           echo "Project dir resolved to: $PROJECT_DIR"
